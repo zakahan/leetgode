@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"goleetcode/problem_416"
+	"goleetcode/problem_55"
 )
 
 func main() {
 	fmt.Println("Calling Tes	t1 function from 11121.go")
-	x := []int{1, 5, 11, 5}
-	m := problem_416.CanPartition(x)
+	x := []int{1, 2, 3}
+	m := problem_55.CanJump(x)
 	print(m) // target 11
 }
 
