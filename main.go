@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	"goleetcode/problem_416"
+	"goleetcode/problem_76"
 )
 
 func main() {
 	fmt.Println("Calling Tes	t1 function from 11121.go")
-	x := []int{1, 5, 11, 5}
-	m := problem_416.CanPartition(x)
-	print(m) // target 11
+	var s = "a"
+	var t = "b"
+	problem_76.MinWindow(s, t)
+
 }
 
 // i代表在前i个里面挑选  j表示总和
