@@ -1,5 +1,6 @@
 package problem_34
 
+// 很像39题 组合总数哪个
 func SearchRange(nums []int, target int) []int {
 	if len(nums) == 0 {
 		return []int{-1, -1}
