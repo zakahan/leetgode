@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"goleetcode/problem_78"
+	"goleetcode/demo_1/problem_78"
 )
 
 func main() {
