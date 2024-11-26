@@ -1,40 +1,4 @@
-package problem_85
-
-func maximalRectangle(matrix [][]byte) int {
-	hList := make([][]int, len(matrix)) // 多行高度列表
-	for i := range matrix {
-		hList[i] = make([]int, len(matrix[i]))
-		for j := range matrix[i] {
-			if i == 0 {
-				var x = 0
-				if matrix[i][j] == '1' {
-					x = 1
-				} else {
-					x = 0
-				}
-				hList[i][j] = x
-			} else {
-				if matrix[i][j] == '1' {
-					hList[i][j] = hList[i-1][j] + 1
-				} else {
-					hList[i][j] = 0
-				}
-
-			}
-		}
-	}
-	//fmt.Println(hList)
-	// 完成表的构建
-	maxArea := 0
-	for i := range hList {
-		tmpArea := largestRectangleArea(hList[i])
-		if tmpArea > maxArea {
-			maxArea = tmpArea
-		}
-	}
-
-	return maxArea
-}
+package problem_84
 
 func largestRectangleArea(heights []int) int {
 	n := len(heights)
