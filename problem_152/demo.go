@@ -2,64 +2,50 @@ package problem_152
 
 import (
 	"fmt"
-	"math"
 )
 
+// 动态规划，可以优化空间复杂度，但是算了就这样了。
 func maxProduct(nums []int) int {
-	// [1,2,-2,5,6,7,0,10]
-	// 牢记，动态规划是，我只需要知道你能到这里，但是我不需要知道你怎么到这里的，
-	// 第一种情况，正数和负数都考虑，就是不考虑0
+	// 状态转移方程，max{a_i, f_min(i-1) * a_i , f_max(i-1) * a_i}
+	// 状态转移方程，min{a_i, f_min(i-1) * a_i , f_max(i-1) * a_i}
 	if len(nums) == 1 {
 		return nums[0]
 	}
-	x := dpNormal(nums)
-	y := dpAbnormal(nums)
-	if x > y {
-		return x
+	max_value := nums[0]
+	dp_max := make([]int, len(nums))
+	dp_min := make([]int, len(nums))
+	dp_max[0] = nums[0]
+	dp_min[0] = nums[0]
+	for i := 1; i < len(nums); i++ {
+		dp_max[i] = max3(nums[i], dp_max[i-1]*nums[i], dp_min[i-1]*nums[i])
+		dp_min[i] = min3(nums[i], dp_max[i-1]*nums[i], dp_min[i-1]*nums[i])
+
+		if dp_max[i] > max_value {
+			max_value = dp_max[i]
+		}
+	}
+
+	//fmt.Println(dp_max)
+	fmt.Println(dp_min)
+	return max_value
+}
+
+func min3(a int, b int, c int) int {
+	if a <= b && a <= c {
+		return a
+	} else if b <= a && b <= c {
+		return b
 	} else {
-		return y
+		return c
 	}
 }
 
-func dpNormal(nums []int) int {
-	maxValue := math.MinInt32
-	dp := make([]int, len(nums))
-	dp[0] = nums[0]
-
-	i := 1
-	for i < len(nums) {
-		if dp[i-1] != 0 {
-			dp[i] = dp[i-1] * nums[i]
-		} else {
-			dp[i] = nums[i]
-		}
-		if dp[i] > maxValue {
-			maxValue = dp[i]
-		}
-		i++
+func max3(a int, b int, c int) int {
+	if a >= b && a >= c {
+		return a
+	} else if b >= a && b >= c {
+		return b
+	} else {
+		return c
 	}
-	fmt.Println("nor", dp)
-	return maxValue
-}
-
-func dpAbnormal(nums []int) int {
-	maxValue := math.MinInt32
-	dp := make([]int, len(nums))
-	dp[0] = nums[0]
-
-	i := 1
-	for i < len(nums) {
-		if dp[i-1] <= 0 {
-			dp[i] = nums[i]
-		} else {
-			dp[i] = dp[i-1] * nums[i]
-		}
-		if dp[i] > maxValue {
-			maxValue = dp[i]
-		}
-		i++
-	}
-	fmt.Println("abn", dp)
-
-	return maxValue
 }
